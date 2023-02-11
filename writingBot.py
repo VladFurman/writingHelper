@@ -25,6 +25,7 @@ bot = commands.Bot(command_prefix='?',
 async def on_ready():
     print(f'We have logged in as {bot.user}')
     channel = bot.get_channel(1073821842575462500)
+    assert isinstance(channel, discord.TextChannel)
     await channel.send('`Initiate!`')
 
 
@@ -45,6 +46,8 @@ async def on_message(message):
 
     if message.channel.id == spiderInBatICID or message.channel.id == botTestID:
         if hasFive(message.content):
-            await bot.get_channel(spiderInBatOOCID).send('There\'s a five!')
+            channel = bot.get_channel(spiderInBatOOCID)
+            assert isinstance(channel, discord.TextChannel)
+            await channel.send('There\'s a five!')
 
 bot.run(config.bot_key)
