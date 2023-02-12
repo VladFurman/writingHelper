@@ -6,7 +6,7 @@ from discord.ext import commands
 
 import config
 
-description = "It's a bot it goes ping when someone says five"
+description = "It's a bot it goes ping when someone says five in dialogue"
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -25,7 +25,7 @@ async def on_ready():
     await channel.send('`Initiate!`')
 
 
-def hasFive(text):
+def hasFiveInDialogue(text):
     text = text.lower()
     for match in re.finditer('\"([^"]*?)\"', text):
         if 'five' in match[0]:
@@ -40,7 +40,7 @@ async def on_message(message):
         return
 
     if message.channel.id == config.channelToScanID or message.channel.id == config.channelBotTestID:
-        if hasFive(message.content):
+        if hasFiveInDialogue(message.content):
             if (message.author.id == config.userIdToScanForFive):
                 channel = bot.get_channel(config.channelToReportID)
                 assert isinstance(channel, discord.TextChannel)
