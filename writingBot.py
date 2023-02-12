@@ -40,10 +40,11 @@ async def on_message(message):
         return
 
     if message.channel.id == config.channelToScanID or message.channel.id == config.channelBotTestID:
-        if hasFiveInDialogue(message.content):
-            if (message.author.id == config.userIdToScanForFive):
+        author = message.author
+        if (author.id == config.userIdToScanForFive):
+            if hasFiveInDialogue(message.content):
                 channel = bot.get_channel(config.channelToReportID)
                 assert isinstance(channel, discord.TextChannel)
-                await channel.send('There\'s a five!')
+                await channel.send(author.name + ' said a five!')
 
 bot.run(config.bot_key)
