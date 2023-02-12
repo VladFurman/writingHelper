@@ -8,10 +8,6 @@ import config
 
 description = "It's a bot it goes ping when someone says five"
 
-spiderInBatICID = 1073751352074829874
-spiderInBatOOCID = 1073751824642887811
-botTestID = 1073821842575462500
-
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -24,7 +20,7 @@ bot = commands.Bot(command_prefix='?',
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
-    channel = bot.get_channel(1073821842575462500)
+    channel = bot.get_channel(config.channelBotTestID)
     assert isinstance(channel, discord.TextChannel)
     await channel.send('`Initiate!`')
 
@@ -43,9 +39,9 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    if message.channel.id == spiderInBatICID or message.channel.id == botTestID:
+    if message.channel.id == config.channelToScanID or message.channel.id == config.channelBotTestID:
         if hasFive(message.content):
-            channel = bot.get_channel(spiderInBatOOCID)
+            channel = bot.get_channel(config.channelToReportID)
             assert isinstance(channel, discord.TextChannel)
             await channel.send('There\'s a five!')
 
