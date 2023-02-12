@@ -31,7 +31,6 @@ async def on_ready():
 
 def hasFive(text):
     text = text.lower()
-    m = re.search('\"([^"]*?)\"', text)
     for match in re.finditer('\"([^"]*?)\"', text):
         if 'five' in match[0]:
             return True
